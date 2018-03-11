@@ -129,10 +129,10 @@ To reduce the skewness, we use the preProcess function in the caret package, by 
 ```{r skewness 2}
 set.seed(4321)
 transData1 <- preProcess(data1,
-                         method = c("BoxCox", "pca"))
+                         method = c("BoxCox", "pca", "scale", "center"))
 
 transData2 <- preProcess(data2,
-                         method = c("BoxCox", "pca"))
+                         method = c("BoxCox", "pca", "scale", "center"))
 ```
 
 We can now apply the transformations to our data and have a look at the new plot of the skewness.  
@@ -199,7 +199,8 @@ preds2 <- predict(svmFit2, transTest2)
 
 table(preds1, preds2)
 ```
-The two models predict almost the same values to be overall identical, in conclusion.
+The two models predict almost the same classes for the 20 testing observations.  
+In conclusion, they appear identical if we look at their total accuracy in predicting the outcomes.
 ```{r predictions 2, echo = FALSE}
 exp_outcome <- c("B","A","B","A","A","E","D","B","A","A","B","C","B","A","E","E","A","B","B","B")
 cm1 <- confusionMatrix(preds1, exp_outcome)
